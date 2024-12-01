@@ -1,5 +1,6 @@
 package nl.roka.adventofcode.aoc2024.day1;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import nl.roka.adventofcode.aoc.input.LineReader;
 import nl.roka.adventofcode.aoc.puzzle.AbstractDayPuzzle;
@@ -10,7 +11,7 @@ import nl.roka.adventofcode.aoc.runner.Runner;
 
 public class Day1 extends AbstractDayPuzzle {
 
-  public static final Solutions SOLUTIONS = Solutions.silver(2113135);
+  public static final Solutions SOLUTIONS = Solutions.of(2113135, 19097157);
 
   public static void main(String[] args) {
     Runner.run(new Day1());
@@ -48,6 +49,23 @@ public class Day1 extends AbstractDayPuzzle {
 
   @Override
   public Answer runGold() {
-    return Answer.TBD;
+    var list1 = new ArrayList<BigInteger>();
+    var list2 = new ArrayList<BigInteger>();
+    day.forEach(
+        line -> {
+          var split = line.split(" {3}");
+          list1.add(new BigInteger(split[0]));
+          list2.add(new BigInteger(split[1]));
+        });
+
+    BigInteger sum = BigInteger.ZERO;
+    for (BigInteger id1 : list1) {
+      sum =
+          sum.add(
+              id1.multiply(
+                  BigInteger.valueOf(list2.stream().filter(id -> id.equals(id1)).count())));
+    }
+
+    return Answer.of(sum);
   }
 }
