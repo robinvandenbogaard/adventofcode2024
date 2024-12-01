@@ -1,5 +1,7 @@
 package nl.roka.adventofcode.aoc.input;
 
+import java.util.List;
+
 public class Grid {
   private final String[] grid;
 
@@ -78,5 +80,9 @@ public class Grid {
     String text = grid[point.x()];
     int index = point.y();
     grid[point.x()] = text.substring(0, index) + symbol + text.substring(index + 1);
+  }
+
+  public List<String> columnAsList(int i) {
+    return null;
   }
 }
