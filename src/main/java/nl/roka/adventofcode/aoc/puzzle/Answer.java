@@ -21,4 +21,8 @@ public record Answer(String text) {
   public static Answer of(String text) {
     return new Answer(text);
   }
+
+  public boolean isNotCalculated() {
+    return this.equals(TBD);
+  }
 }

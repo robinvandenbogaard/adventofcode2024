@@ -13,6 +13,7 @@ public class Runner {
     var run = new PuzzleRun(puzzle.dayNumber(), silver, gold);
 
     PuzzleRunPrinter.print(run);
+    PuzzleStorage.save(run);
   }
 
   public static void warmup(DayPuzzle puzzle) {

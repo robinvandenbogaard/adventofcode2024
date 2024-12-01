@@ -25,7 +25,7 @@ class AllPuzzleRunner {
   }
 
   private static Stream<AbstractDayPuzzle> getAbstractDayPuzzles() {
-    return new Reflections("nl.roka.adventofcode.aoc2023")
+    return new Reflections("nl.roka.adventofcode.aoc" + Configuration.ADVENT_YEAR)
         .getSubTypesOf(AbstractDayPuzzle.class).stream()
             .sorted(Comparator.comparing(Class::getSimpleName))
             .filter(AllPuzzleRunner::isStartingPuzzleAllowed)
