@@ -1,5 +1,7 @@
 package nl.roka.adventofcode.aoc.input;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public final class Line {
@@ -15,6 +17,10 @@ public final class Line {
 
   public static Line none() {
     return new Line(null);
+  }
+
+  public List<Integer> toIntegers(String delimiter) {
+    return Arrays.stream(text.split(delimiter)).map(Integer::valueOf).toList();
   }
 
   public String text() {

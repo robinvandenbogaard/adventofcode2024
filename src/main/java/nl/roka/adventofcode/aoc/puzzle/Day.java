@@ -2,6 +2,7 @@ package nl.roka.adventofcode.aoc.puzzle;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Stream;
 import nl.roka.adventofcode.aoc.input.Grid;
 import nl.roka.adventofcode.aoc.input.Line;
@@ -47,5 +48,9 @@ public class Day {
   public Grid fullGrid(String symbol) {
     reader.reset();
     return Grid.withBorder(reader, symbol);
+  }
+
+  public <R> Stream<R> map(Function<Line, ? extends R> mapper) {
+    return stream().map(mapper);
   }
 }
