@@ -17,7 +17,7 @@ class Day3Test {
 
   @Test
   void goldExample() {
-    assertThat(new Day3(LineReader.of("/day3-gold.in")).runGold()).isEqualTo(Answer.of("TBD"));
+    assertThat(new Day3(LineReader.of("/day3-gold.in")).runGold()).isEqualTo(Answer.of("48"));
   }
 
   @ParameterizedTest
