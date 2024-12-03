@@ -32,28 +32,16 @@ public class Day2 extends AbstractDayPuzzle {
 
   public boolean isSafe(List<Integer> reading) {
     if (reading.isEmpty()) return true;
-    var curr = reading.getFirst();
+    var cursor = new Cursor(reading, 0);
     var violation = false;
 
-    BiFunction<Integer, Integer, Boolean> comparator = null;
-
     for (int i = 1; i < reading.size() && !violation; i++) {
-      Integer other = reading.get(i);
-      if (comparator == null) {
-        comparator = getComparator(curr, other);
-      }
-
-      if (!comparator.apply(curr, other)) violation = true;
-
-      if (Math.abs(other - curr) > 3) violation = true;
-
-      curr = other;
+      cursor.peekAt(i);
+      if (cursor.violatesGrowth()) violation = true;
+      if (cursor.violatesDifference()) violation = true;
+      cursor.advance();
     }
     return !violation;
-  }
-
-  private BiFunction<Integer, Integer, Boolean> getComparator(Integer curr, Integer other) {
-    return curr < other ? (a, b) -> a < b : (a, b) -> a > b;
   }
 
   @Override
