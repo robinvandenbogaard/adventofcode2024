@@ -4,14 +4,16 @@ import java.util.List;
 
 public record Point(int x, int y) {
 
-  public static Point NORTH = new Point(0, 0).north();
-  public static Point SOUTH = new Point(0, 0).south();
-  public static Point WEST = new Point(0, 0).west();
-  public static Point EAST = new Point(0, 0).east();
-  public static Point NORTHEAST = new Point(0, 0).northEast();
-  public static Point SOUTHWEST = new Point(0, 0).southWest();
-  public static Point NORTHWEST = new Point(0, 0).northWest();
-  public static Point SOUTHEAST = new Point(0, 0).southEast();
+  public static final Point ZERO = new Point(0, 0);
+
+  public static Point NORTH = ZERO.north();
+  public static Point SOUTH = ZERO.south();
+  public static Point WEST = ZERO.west();
+  public static Point EAST = ZERO.east();
+  public static Point NORTHEAST = ZERO.northEast();
+  public static Point SOUTHWEST = ZERO.southWest();
+  public static Point NORTHWEST = ZERO.northWest();
+  public static Point SOUTHEAST = ZERO.southEast();
 
   public static Point of(int x, int y) {
     return new Point(x, y);
