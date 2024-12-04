@@ -10,11 +10,22 @@ class Day4Test {
 
   @Test
   void silverExample() {
-    assertThat(new Day4().runSilver()).isEqualTo(Answer.TBD);
+    assertThat(new Day4().runSilver()).isEqualTo(Answer.of("18"));
   }
 
   @Test
   void goldExample() {
     assertThat(new Day4(LineReader.of("/day4-gold.in")).runGold()).isEqualTo(Answer.TBD);
+  }
+
+  @Test
+  void simpleStar() {
+    assertThat(new Day4(LineReader.of("/day4-star.in")).runSilver()).isEqualTo(Answer.of(8));
+  }
+
+  @Test
+  void simpleStarReversed() {
+    assertThat(new Day4(LineReader.of("/day4-star-reverse.in")).runSilver())
+        .isEqualTo(Answer.of(8));
   }
 }

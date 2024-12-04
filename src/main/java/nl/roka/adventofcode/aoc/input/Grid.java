@@ -47,7 +47,7 @@ public class Grid {
     return String.valueOf(grid[row].toCharArray()[column]);
   }
 
-  private boolean inBounds(int row, int column) {
+  public boolean inBounds(int row, int column) {
     return row >= 0 && row < height() && column >= 0 && column < width();
   }
 
@@ -84,5 +84,22 @@ public class Grid {
 
   public List<String> columnAsList(int i) {
     return null;
+  }
+
+  public char getChar(Point point) {
+    return get(point).charAt(0);
+  }
+
+  public char getChar(int x, int y) {
+    return get(x, y).charAt(0);
+  }
+
+  public void print() {
+    for (var x = 0; x < width(); x++) {
+      for (var y = 0; y < height(); y++) {
+        System.out.print(get(x, y));
+      }
+      System.out.println();
+    }
   }
 }
