@@ -16,7 +16,7 @@ import nl.roka.adventofcode.aoc.runner.Runner;
 
 public class Day4 extends AbstractDayPuzzle {
 
-  public static final Solutions SOLUTIONS = Solutions.silver(2642);
+  public static final Solutions SOLUTIONS = Solutions.of(2642, 1974);
   private Grid grid;
 
   public static void main(String[] args) {
@@ -34,11 +34,11 @@ public class Day4 extends AbstractDayPuzzle {
   @Override
   public Answer runSilver() {
     this.grid = day.fullGrid();
-    return Answer.of(count("XMAS"));
+    return Answer.of(count());
   }
 
-  private int count(String xmas) {
-    var word = xmas.toCharArray();
+  private int count() {
+    var word = "XMAS".toCharArray();
     var total = 0;
     for (var x = 0; x < grid.width(); x++) {
       for (var y = 0; y < grid.height(); y++) {
@@ -59,7 +59,7 @@ public class Day4 extends AbstractDayPuzzle {
   }
 
   private boolean dfs(int x, int y, int index, char[] word, Point dir) {
-    var point = of(x, y);
+    var point = Point.of(x, y);
     if (word.length == index) return true;
 
     if (!grid.inBounds(x, y)) return false;
@@ -81,6 +81,30 @@ public class Day4 extends AbstractDayPuzzle {
 
   @Override
   public Answer runGold() {
-    return Answer.TBD;
+    this.grid = day.fullGrid();
+    return Answer.of(countXMAS());
+  }
+
+  private int countXMAS() {
+    var total = 0;
+    for (var x = 1; x < grid.width() - 1; x++) {
+      for (var y = 1; y < grid.height() - 1; y++) {
+        var letter = grid.getChar(x, y);
+        if (letter == 'A') {
+          Point point = Point.of(x, y);
+          total += match(point) ? 1 : 0;
+        }
+      }
+    }
+    return total;
+  }
+
+  private boolean match(Point point) {
+    char northEast = grid.getChar(point.northEast());
+    char southWest = grid.getChar(point.southWest());
+    char northWest = grid.getChar(point.northWest());
+    char southEast = grid.getChar(point.southEast());
+    return ((northEast == 'M' && southWest == 'S') || (northEast == 'S' && southWest == 'M'))
+        && ((northWest == 'M' && southEast == 'S') || (northWest == 'S' && southEast == 'M'));
   }
 }

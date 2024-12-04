@@ -15,7 +15,7 @@ class Day4Test {
 
   @Test
   void goldExample() {
-    assertThat(new Day4(LineReader.of("/day4-gold.in")).runGold()).isEqualTo(Answer.TBD);
+    assertThat(new Day4(LineReader.of("/day4-gold.in")).runGold()).isEqualTo(Answer.of("9"));
   }
 
   @Test
