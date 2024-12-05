@@ -1,5 +1,6 @@
 package nl.roka.adventofcode.aoc2024.day5;
 
+import java.util.ArrayList;
 import nl.roka.adventofcode.aoc.input.LineReader;
 import nl.roka.adventofcode.aoc.puzzle.AbstractDayPuzzle;
 import nl.roka.adventofcode.aoc.puzzle.Answer;
@@ -25,7 +26,29 @@ public class Day5 extends AbstractDayPuzzle {
 
   @Override
   public Answer runSilver() {
-    return Answer.TBD;
+    var rules = new ArrayList<Rule>();
+    var input = new ArrayList<Input>();
+
+    day.stream()
+        .forEach(
+            line -> {
+              if (line.contains("|")) {
+                rules.add(Rule.of(line.text()));
+              } else if (line.contains(",")) {
+                input.add(Input.of(line.text()));
+              }
+            });
+
+    var sorter = new Sorter(RulesComparator.of(rules), 5);
+
+    var sum =
+        input.stream()
+            .filter(line -> sorter.isSorted(line.digits(), line.digits()))
+            .map(Input::getCenterValue)
+            .reduce(Integer::sum)
+            .orElse(0);
+
+    return Answer.of(sum);
   }
 
   @Override

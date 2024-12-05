@@ -50,4 +50,8 @@ public final class Line {
   public String toString() {
     return "Line{" + "text='" + text + '\'' + '}';
   }
+
+  public boolean contains(String text) {
+    return text().contains(text);
+  }
 }
