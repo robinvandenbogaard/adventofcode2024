@@ -19,15 +19,15 @@ public class Graph<V> {
   public boolean isSorted(List<V> digits) {
     var sorted = true;
     for (int i = 1; i < digits.size() && sorted; i++) {
-      sorted = canReach(digits.get(i - 1), digits.subList(i, digits.size()));
+      sorted = canReach(digits.get(i - 1), digits.get(i));
     }
     return sorted;
   }
 
-  public boolean canReach(V start, List<V> targets) {
+  public boolean canReach(V start, V target) {
     var visited = new ArrayList<V>();
     dfs(start, visited);
-    return visited.containsAll(targets);
+    return visited.contains(target);
   }
 
   private void dfs(V node, List<V> visited) {
