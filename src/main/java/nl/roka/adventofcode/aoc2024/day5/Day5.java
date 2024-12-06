@@ -11,6 +11,8 @@ import nl.roka.adventofcode.aoc.runner.Runner;
 public class Day5 extends AbstractDayPuzzle {
 
   public static final Solutions SOLUTIONS = Solutions.silver(5452);
+  private final ArrayList<Rule> rules;
+  private final ArrayList<Input> inputs;
 
   public static void main(String[] args) {
     Runner.run(new Day5());
@@ -18,43 +20,36 @@ public class Day5 extends AbstractDayPuzzle {
 
   public Day5() {
     super(new Day(5), SOLUTIONS);
+    rules = new ArrayList<>();
+    inputs = new ArrayList<>();
   }
 
   public Day5(LineReader reader) {
     super(new Day(5, reader), SOLUTIONS);
+    rules = new ArrayList<>();
+    inputs = new ArrayList<>();
   }
 
   @Override
   public Answer runSilver() {
-    var rules = new ArrayList<Rule>();
-    var inputs = new ArrayList<Input>();
+    readInput();
 
+    var sum =
+        inputs.stream().filter(Input::isSorted).map(Input::getCenterValue).reduce(0, Integer::sum);
+
+    return Answer.of(sum);
+  }
+
+  private void readInput() {
     day.stream()
         .forEach(
             line -> {
               if (line.contains("|")) {
                 rules.add(Rule.of(line.text()));
               } else if (line.contains(",")) {
-                inputs.add(Input.of(line.text()));
+                inputs.add(Input.of(line.text(), rules));
               }
             });
-
-    var sum =
-        inputs.stream()
-            .filter(
-                line -> {
-                  var graph = new Graph<Integer>();
-
-                  rules.stream()
-                      .filter(r -> line.digits().contains(r.before()))
-                      .forEach(r -> graph.add(r.before(), r.after()));
-                  return graph.isSorted(line.digits());
-                })
-            .map(Input::getCenterValue)
-            .reduce(Integer::sum)
-            .orElse(0);
-
-    return Answer.of(sum);
   }
 
   @Override
