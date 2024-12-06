@@ -10,7 +10,7 @@ import nl.roka.adventofcode.aoc.runner.Runner;
 
 public class Day5 extends AbstractDayPuzzle {
 
-  public static final Solutions SOLUTIONS = Solutions.none();
+  public static final Solutions SOLUTIONS = Solutions.silver(5452);
 
   public static void main(String[] args) {
     Runner.run(new Day5());
@@ -27,7 +27,7 @@ public class Day5 extends AbstractDayPuzzle {
   @Override
   public Answer runSilver() {
     var rules = new ArrayList<Rule>();
-    var input = new ArrayList<Input>();
+    var inputs = new ArrayList<Input>();
 
     day.stream()
         .forEach(
@@ -35,15 +35,21 @@ public class Day5 extends AbstractDayPuzzle {
               if (line.contains("|")) {
                 rules.add(Rule.of(line.text()));
               } else if (line.contains(",")) {
-                input.add(Input.of(line.text()));
+                inputs.add(Input.of(line.text()));
               }
             });
 
-    var sorter = new Sorter(RulesComparator.of(rules), 5);
-
     var sum =
-        input.stream()
-            .filter(line -> sorter.isSorted(line.digits(), line.digits()))
+        inputs.stream()
+            .filter(
+                line -> {
+                  var graph = new Graph<Integer>();
+
+                  rules.stream()
+                      .filter(r -> line.digits().contains(r.before()))
+                      .forEach(r -> graph.add(r.before(), r.after()));
+                  return graph.isSorted(line.digits());
+                })
             .map(Input::getCenterValue)
             .reduce(Integer::sum)
             .orElse(0);
