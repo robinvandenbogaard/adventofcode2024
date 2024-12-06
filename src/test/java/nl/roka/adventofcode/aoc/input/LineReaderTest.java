@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 
 class LineReaderTest {
 
+  public static final String AOC_LINEREADER_TEST_IN = "/aoc/input/linereaderTest.txt";
+
   @Test
   void readLine() {
-    var reader = LineReader.of("/aoc/linereaderTest.in");
+    var reader = LineReader.of(AOC_LINEREADER_TEST_IN);
 
     assertThat(reader.nextLine()).isEqualTo(Line.of("1abc2"));
     assertThat(reader.nextLine()).isEqualTo(Line.of("pqr3stu8vwx"));
@@ -19,7 +21,7 @@ class LineReaderTest {
 
   @Test
   void stream() {
-    var allLines = LineReader.of("/aoc/linereaderTest.in").stream().toList();
+    var allLines = LineReader.of(AOC_LINEREADER_TEST_IN).stream().toList();
 
     assertThat(allLines)
         .containsExactly(
@@ -31,7 +33,7 @@ class LineReaderTest {
 
   @Test
   void streamTwiceNeedsAReset() {
-    LineReader lineReader = LineReader.of("/aoc/linereaderTest.in");
+    LineReader lineReader = LineReader.of(AOC_LINEREADER_TEST_IN);
 
     assertThat(lineReader.stream().toList())
         .containsExactly(
@@ -45,7 +47,7 @@ class LineReaderTest {
 
   @Test
   void streamTwiceAfterReset() {
-    LineReader lineReader = LineReader.of("/aoc/linereaderTest.in");
+    LineReader lineReader = LineReader.of(AOC_LINEREADER_TEST_IN);
 
     assertThat(lineReader.stream().toList())
         .containsExactly(
@@ -66,7 +68,7 @@ class LineReaderTest {
 
   @Test
   void lineCount() {
-    LineReader lineReader = LineReader.of("/aoc/linereaderTest.in");
+    LineReader lineReader = LineReader.of(AOC_LINEREADER_TEST_IN);
     assertThat(lineReader.lineCount()).isEqualTo(4);
   }
 }

@@ -5,9 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 class GridTest {
+
+  public static final String AOC_INPUT_GRID_TEST_TXT = "/aoc/input/gridTest.txt";
+
   @Test
   void gridCreation() {
-    Grid grid = Grid.of(LineReader.of("/aoc/gridTest.in"));
+    Grid grid = Grid.of(LineReader.of(AOC_INPUT_GRID_TEST_TXT));
 
     assertThat(grid.get(0, 0)).isEqualTo("1");
     assertThat(grid.get(0, 1)).isEqualTo("2");
@@ -20,7 +23,7 @@ class GridTest {
 
   @Test
   void outOfBounds() {
-    Grid grid = Grid.of(LineReader.of("/aoc/gridTest.in"));
+    Grid grid = Grid.of(LineReader.of(AOC_INPUT_GRID_TEST_TXT));
 
     assertThat(grid.get(-1, 0)).isNull();
     assertThat(grid.get(3, 0)).isNull();
@@ -30,14 +33,14 @@ class GridTest {
 
   @Test
   void symbol() {
-    Grid grid = Grid.of(LineReader.of("/aoc/gridTest.in"));
+    Grid grid = Grid.of(LineReader.of(AOC_INPUT_GRID_TEST_TXT));
 
     assertThat(grid.findSymbol("b")).isEqualTo(Point.of(1, 1));
   }
 
   @Test
   void directional() {
-    Grid grid = Grid.of(LineReader.of("/aoc/gridTest.in"));
+    Grid grid = Grid.of(LineReader.of(AOC_INPUT_GRID_TEST_TXT));
     Point point_b = grid.findSymbol("b");
 
     assertThat(grid.get(point_b.north())).isEqualTo("2");
@@ -48,7 +51,7 @@ class GridTest {
 
   @Test
   void setSymbol() {
-    Grid grid = Grid.of(LineReader.of("/aoc/gridTest.in"));
+    Grid grid = Grid.of(LineReader.of(AOC_INPUT_GRID_TEST_TXT));
 
     grid.set(Point.of(2, 0), "*");
 
