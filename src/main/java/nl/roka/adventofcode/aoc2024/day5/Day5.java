@@ -11,8 +11,8 @@ import nl.roka.adventofcode.aoc.runner.Runner;
 public class Day5 extends AbstractDayPuzzle {
 
   public static final Solutions SOLUTIONS = Solutions.silver(5452);
-  private final ArrayList<Rule> rules;
-  private final ArrayList<Input> inputs;
+  final ArrayList<Rule> rules;
+  final ArrayList<Input> inputs;
 
   public static void main(String[] args) {
     Runner.run(new Day5());
@@ -40,7 +40,7 @@ public class Day5 extends AbstractDayPuzzle {
     return Answer.of(sum);
   }
 
-  private void readInput() {
+  public void readInput() {
     day.stream()
         .forEach(
             line -> {
@@ -54,6 +54,15 @@ public class Day5 extends AbstractDayPuzzle {
 
   @Override
   public Answer runGold() {
-    return Answer.TBD;
+    readInput();
+
+    var sum =
+        inputs.stream()
+            .filter(Input::isNotSorted)
+            .map(Input::sorted)
+            .map(Input::getCenterValue)
+            .reduce(0, Integer::sum);
+
+    return Answer.of(sum);
   }
 }

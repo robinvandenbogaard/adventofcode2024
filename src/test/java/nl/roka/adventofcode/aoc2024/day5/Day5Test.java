@@ -32,4 +32,27 @@ class Day5Test {
     List<Integer> input = List.of(1, 2, 3);
     assertThat(new Input(input, null).getCenterValue()).isEqualTo(2);
   }
+
+  @Test
+  void sortError1() {
+    var day = new Day5();
+    day.readInput();
+    assertThat(Input.of("75,97,47,61,53", day.rules).sorted().digits())
+        .containsExactly(97, 75, 47, 61, 53);
+  }
+
+  @Test
+  void sortError2() {
+    var day = new Day5();
+    day.readInput();
+    assertThat(Input.of("61,13,29", day.rules).sorted().digits()).containsExactly(61, 29, 13);
+  }
+
+  @Test
+  void sortError3() {
+    var day = new Day5();
+    day.readInput();
+    assertThat(Input.of("97,13,75,29,47", day.rules).sorted().digits())
+        .containsExactly(97, 75, 47, 29, 13);
+  }
 }
