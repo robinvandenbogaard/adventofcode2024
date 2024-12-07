@@ -74,4 +74,14 @@ public record Point(int x, int y) {
   public Point add(Point point) {
     return Point.of(this.x + point.x, this.y + point.y);
   }
+
+  public Point turnRight() {
+    if (this.equals(NORTH)) return EAST;
+    else if (this.equals(SOUTH)) {
+      return WEST;
+
+    } else if (this.equals(EAST)) {
+      return SOUTH;
+    } else return NORTH;
+  }
 }

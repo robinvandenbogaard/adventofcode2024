@@ -102,4 +102,8 @@ public class Grid {
       System.out.println();
     }
   }
+
+  public boolean inBounds(Point point) {
+    return inBounds(point.x(), point.y());
+  }
 }
