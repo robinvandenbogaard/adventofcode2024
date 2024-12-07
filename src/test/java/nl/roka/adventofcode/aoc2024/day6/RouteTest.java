@@ -1,7 +1,6 @@
 package nl.roka.adventofcode.aoc2024.day6;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import nl.roka.adventofcode.aoc.input.Point;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,7 @@ class RouteTest {
 
   @Test
   void distinctCount() {
-    var r = new Route();
+    var r = new Route(null);
 
     r.add(Point.NORTH);
     r.add(Point.NORTH);

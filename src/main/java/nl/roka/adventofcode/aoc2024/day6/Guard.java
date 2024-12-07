@@ -8,10 +8,12 @@ class Guard {
   private final Grid grid;
   private Point position;
   private Point direction;
+  private int couldBeObstructions;
+  private boolean obstructionsChanged;
 
   public Guard(Point start, Grid grid) {
     this.grid = grid;
-    this.route = new Route();
+    this.route = new Route(grid);
     route.add(start);
     this.position = start;
     this.direction = Point.NORTH;
@@ -21,12 +23,26 @@ class Guard {
     while (grid.inBounds(position.add(direction))) {
       if (obstructed()) {
         direction = direction.turnRight();
+        route.updateTrail();
       }
+
+      if (route.isOnTrail(position.add(direction))) {
+        couldBeObstructions++;
+        obstructionsChanged = true;
+      }
+
       advance();
-      // grid.print();
-      // System.out.println();
+      print();
+      obstructionsChanged = false;
     }
     return route;
+  }
+
+  private void print() {
+    if (Day6.DEBUG) {
+      grid.print();
+      System.out.println();
+    }
   }
 
   private boolean obstructed() {
@@ -34,9 +50,13 @@ class Guard {
   }
 
   private void advance() {
-    // grid.set(position, ".");
+    if (Day6.DEBUG) grid.set(position, route.isOnTrail(position) ? "*" : ".");
     position = position.add(direction);
-    // grid.set(position, "G");
+    if (Day6.DEBUG) grid.set(position, obstructionsChanged ? "X" : "G");
     route.add(position);
+  }
+
+  public int getCouldBeObstructions() {
+    return couldBeObstructions;
   }
 }

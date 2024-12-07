@@ -10,6 +10,7 @@ import nl.roka.adventofcode.aoc.runner.Runner;
 public class Day6 extends AbstractDayPuzzle {
 
   public static final Solutions SOLUTIONS = Solutions.silver(4890);
+  public static final boolean DEBUG = true;
 
   public static void main(String[] args) {
     Runner.run(new Day6());
@@ -33,6 +34,11 @@ public class Day6 extends AbstractDayPuzzle {
 
   @Override
   public Answer runGold() {
-    return Answer.TBD;
+    var grid = day.fullGrid();
+    var start = grid.findSymbol("^");
+    var guard = new Guard(start, grid);
+    guard.patrol();
+
+    return Answer.of(guard.getCouldBeObstructions());
   }
 }
